@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tencent_tls_ui_dialog_bg">
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="5dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/tencent_tls_ui_dialog_edittext"
+        android:inputType="textPassword"
+        android:hint="密码长度为8~16个字符"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <Button android:text="取消"
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/tencent_tls_ui_dialog_btn"/>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="#BBBBBB" />
+
+        <Button android:text="确定"
+            android:id="@+id/btn_confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/tencent_tls_ui_dialog_btn"/>
+
+    </LinearLayout>
+
+</LinearLayout>

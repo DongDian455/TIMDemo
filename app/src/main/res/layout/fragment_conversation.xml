@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.dongdian.jj.timdemo.ui.ConversationFragment">
+
+    <com.tencent.qcloud.ui.TemplateTitle
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="@string/home_conversation_tab"/>
+    <ListView
+        android:id="@id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+
+</LinearLayout>

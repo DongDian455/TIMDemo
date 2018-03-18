@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textView_countryName"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textColor="@color/tencent_tls_ui_black"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="@dimen/tencent_tls_ui_edittext_leftpadding"
+    android:background="@drawable/tencent_tls_ui_normal_rectangle"
+    android:text="中国大陆"/>

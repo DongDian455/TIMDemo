@@ -1,0 +1,95 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tencent.qcloud.tlslibrary">
+    <uses-sdk android:minSdkVersion="11" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="oicq.wlogin_sdk.permission.WloginProvider.READ" />
+    <uses-permission android:name="oicq.wlogin_sdk.permission.WloginProvider.WRITE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />     <!-- 发送短信-->
+    <uses-permission android:name="android.permission.READ_SMS" />     <!-- 读取短信 -->
+    <uses-permission android:name="android.permission.WRITE_SMS" />    <!-- 写入消息 -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />  <!-- 接收消息 -->
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application>
+
+ <meta-data android:name="com.tencent.rdm.uuid" android:value="a2af72ec-a731-46eb-8501-0477e34702f3" />
+        <activity
+            android:name="com.tencent.qcloud.tlslibrary.activity.HostLoginActivity"
+            android:label="@string/tencent_tls_ui_app_name"
+
+            android:theme="@style/tencent_tls_ui_theme">
+        </activity>
+        <activity
+            android:name="com.tencent.qcloud.tlslibrary.activity.HostRegisterActivity"
+            android:label="@string/tencent_tls_ui_title_activity_host_register"
+            android:launchMode="singleTask"
+            android:theme="@style/tencent_tls_ui_theme">
+        </activity>
+        <activity
+            android:name="com.tencent.qcloud.tlslibrary.activity.IndependentLoginActivity"
+            android:label="@string/tencent_tls_ui_title_activity_independent_login"
+
+            android:theme="@style/tencent_tls_ui_theme" >
+        </activity>
+        <activity
+            android:name="com.tencent.qcloud.tlslibrary.activity.IndependentRegisterActivity"
+            android:label="@string/tencent_tls_ui_title_activity_independent_register"
+            android:launchMode="singleTask"
+            android:theme="@style/tencent_tls_ui_theme" >
+        </activity>
+        <activity
+            android:name="com.tencent.qcloud.tlslibrary.activity.ImgCodeActivity"
+            android:label="@string/tencent_tls_ui_title_activity_imgcode"
+            android:launchMode="singleTask"
+            android:theme="@style/tencent_tls_ui_theme">
+        </activity>
+        <activity
+            android:name="com.tencent.qcloud.tlslibrary.activity.PhonePwdLoginActivity"
+            android:label="@string/tencent_tls_ui_title_activity_phone_pwd"
+            android:launchMode="singleTask"
+            android:theme="@style/tencent_tls_ui_theme">
+        </activity>
+        <activity
+            android:name="com.tencent.qcloud.tlslibrary.activity.PhonePwdRegisterActivity"
+            android:label="@string/tencent_tls_ui_title_activity_phone_pwd_register"
+            android:launchMode="singleTask"
+            android:theme="@style/tencent_tls_ui_theme">
+        </activity>
+        <activity
+            android:name="com.tencent.qcloud.tlslibrary.activity.ResetPhonePwdActivity"
+            android:label="@string/tencent_tls_ui_title_activity_reset_phone_pwd"
+            android:launchMode="singleTask"
+            android:theme="@style/tencent_tls_ui_theme">
+        </activity>
+
+        <!-- QQ登录 -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1104701569" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+    </application>
+
+</manifest>
