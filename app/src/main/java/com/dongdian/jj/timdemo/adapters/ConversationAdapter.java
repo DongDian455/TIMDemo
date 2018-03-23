@@ -8,8 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.dongdian.jj.timdemo.R;
 import com.dongdian.jj.timdemo.model.Conversation;
+import com.dongdian.jj.timdemo.model.UserDto;
 import com.dongdian.jj.timdemo.utils.TimeUtil;
 import com.tencent.qcloud.ui.CircleImageView;
 
@@ -53,8 +55,19 @@ public class ConversationAdapter extends ArrayAdapter<Conversation> {
             view.setTag(viewHolder);
         }
         final Conversation data = getItem(position);
-        viewHolder.tvName.setText(data.getName());
-        viewHolder.avatar.setImageResource(data.getAvatar());
+        UserDto userDto=data.getUserDto();
+        if(userDto!=null){
+            viewHolder.tvName.setText(userDto.getName());
+            //这里说明一下
+            //1.一般会话列表我们是只显示对方的头像和昵称，所以这里你可以自定扩展一个id来识别,demo这里不展示了
+            //2.还有个问题，如果做了1的步骤，当我们发送消息给对方，而对方没有回复我们的时候是没有头像显示的，这时候就应该在点入聊天的时候
+            //保存一个用户id,然后查询数据库，如果数据库没有的话就通过网络获取
+            //3.当然，上面也只是建议，你有自己的实现思路也是可以的
+            Glide.with(getContext()).load(userDto.getAvatar()).dontAnimate().into(viewHolder.avatar);
+        }else {
+            viewHolder.tvName.setText(data.getName());
+            viewHolder.avatar.setImageResource(data.getAvatar());
+        }
         viewHolder.lastMessage.setText(data.getLastMessageSummary());
         viewHolder.time.setText(TimeUtil.getTimeStr(data.getLastMessageTime()));
         long unRead = data.getUnreadNum();

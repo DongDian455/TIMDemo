@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.dongdian.jj.timdemo.R;
 import com.dongdian.jj.timdemo.model.Message;
+import com.tencent.qcloud.ui.CircleImageView;
 
 import java.util.List;
 
@@ -48,6 +49,9 @@ public class ChatAdapter extends ArrayAdapter<Message> {
         }else{
             view = LayoutInflater.from(getContext()).inflate(resourceId, null);
             viewHolder = new ViewHolder();
+            //寻找头像控件，因为ide版本问题可以省去了强转换
+            viewHolder.leftAvatar=view.findViewById(R.id.leftAvatar);
+            viewHolder.rightAvatar=view.findViewById(R.id.rightAvatar);
             viewHolder.leftMessage = (RelativeLayout) view.findViewById(R.id.leftMessage);
             viewHolder.rightMessage = (RelativeLayout) view.findViewById(R.id.rightMessage);
             viewHolder.leftPanel = (RelativeLayout) view.findViewById(R.id.leftPanel);
@@ -77,5 +81,8 @@ public class ChatAdapter extends ArrayAdapter<Message> {
         public TextView sender;
         public TextView systemMessage;
         public TextView rightDesc;
+        //添加头像控件
+        public CircleImageView leftAvatar;
+        public CircleImageView rightAvatar;
     }
 }

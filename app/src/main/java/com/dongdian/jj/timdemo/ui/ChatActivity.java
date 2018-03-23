@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +36,7 @@ import com.dongdian.jj.timdemo.utils.MediaUtil;
 import com.dongdian.jj.timdemo.utils.RecorderUtil;
 import com.tencent.imcore.FriendProfile;
 import com.tencent.imsdk.TIMConversationType;
+import com.tencent.imsdk.TIMCustomElem;
 import com.tencent.imsdk.TIMMessage;
 import com.tencent.imsdk.TIMMessageStatus;
 import com.tencent.imsdk.ext.message.TIMMessageDraft;
@@ -46,6 +48,9 @@ import com.tencent.qcloud.presentation.viewfeatures.ChatView;
 import com.tencent.qcloud.ui.ChatInput;
 import com.tencent.qcloud.ui.TemplateTitle;
 import com.tencent.qcloud.ui.VoiceSendingView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -345,6 +350,8 @@ public class ChatActivity extends FragmentActivity implements ChatView {
     @Override
     public void sendText() {
         Message message = new TextMessage(input.getText());
+        //加入我们自己的扩展内容
+        message.getMessage().addElement(createUserInfoElem());
         presenter.sendMessage(message.getMessage());
         input.setText("");
     }
@@ -570,4 +577,22 @@ public class ChatActivity extends FragmentActivity implements ChatView {
     };
 
 
+    /**
+     * 消息扩展内容，用户的一些基本信息
+     * @return
+     */
+    private TIMCustomElem createUserInfoElem(){
+        //构造一个容器
+        TIMCustomElem elem=new TIMCustomElem();
+        // json的自定义消息
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject.put("name","渣渣辉");
+            jsonObject.put("avatar","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522398341&di=60cdf3deabd3fc8bec2417fe8d95ea8f&imgtype=jpg&er=1&src=http%3A%2F%2Fimg1.ali213.net%2Fwebgamepic%2Fuploadfile%2Fnews%2F2017%2F07%2F06%2Fali20170706105114_77443_600.jpg");
+            elem.setData(jsonObject.toString().getBytes());
+        } catch (JSONException e) {
+            Log.d("tencentim","createUserInfoElem fail"+e.toString());
+        }
+        return  elem;
+    }
 }

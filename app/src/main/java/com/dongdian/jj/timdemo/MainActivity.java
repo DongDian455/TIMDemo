@@ -34,6 +34,7 @@ public class MainActivity extends FragmentActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmelayout,conversationFragment,conversationFragment.getTag()).commit();
     }
 
+    //发送消息
     private void sendNormalMessage() {
         //获取单聊会话
         String peer = "admin2";  //获取与用户 "sample_user_1" 的会话

@@ -1,14 +1,19 @@
 package com.dongdian.jj.timdemo.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.dongdian.jj.timdemo.MyApplication;
 import com.dongdian.jj.timdemo.R;
 import com.dongdian.jj.timdemo.ui.ChatActivity;
 
+import com.google.gson.Gson;
 import com.tencent.imsdk.TIMConversation;
 import com.tencent.imsdk.TIMConversationType;
+import com.tencent.imsdk.TIMCustomElem;
 import com.tencent.imsdk.ext.message.TIMConversationExt;
+
+import java.io.UnsupportedEncodingException;
 
 
 /**
@@ -90,6 +95,23 @@ public class NomalConversation extends Conversation {
             name=profile == null?identify:profile.getName();
 //        }
         return name;
+    }
+
+    @Override
+    public UserDto getUserDto() {
+        UserDto userDto = null;
+        if(lastMessage!=null&&lastMessage.getMessage()!=null&&lastMessage.getMessage().getElementCount()>1){
+            if(lastMessage.getMessage().getElement(1) instanceof TIMCustomElem){
+                TIMCustomElem elem = (TIMCustomElem) lastMessage.getMessage().getElement(1);
+                Gson gson = new Gson();
+                try {
+                    userDto = gson.fromJson(new String(elem.getData(),"UTF-8"), UserDto.class);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return userDto;
     }
 
 

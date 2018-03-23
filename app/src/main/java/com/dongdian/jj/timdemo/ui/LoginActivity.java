@@ -62,8 +62,8 @@ public class LoginActivity extends AppCompatActivity {
         etAccount=findViewById(R.id.et_account);
         etPassword=findViewById(R.id.et_password);
         btnLogin=findViewById(R.id.btn_login);
-
-
+        etAccount.setText("admin2");
+        etPassword.setText("eJx1z0FPgzAUwPE7n6LhqtFCKbQmHhQdYxPJBHTxQgotrBKQQBkuxu**DJfIxXd9v7x-3rcGANDjp*iK5fnn0KhUHVqhgxugm8i0bP3yD7St5ClTKer4BAwLQuhgh5ozJb5a2YmUFUp0vwo7NoGnmSnJRaNkIc*G8Vo28ys9r9Kp93*ol*W0DB4T1988hElInlcX0bI42Nx4G9cUZcqrNwSvV1XsjLG7V7B4L4eXO7*M6MD83ZIEi2LLuXKDrN4ivquyhdfTMLFI7n2099evo8xvZ0kla3H*yTQQtjB1dO1HOwL4XFgC");
     }
 
 

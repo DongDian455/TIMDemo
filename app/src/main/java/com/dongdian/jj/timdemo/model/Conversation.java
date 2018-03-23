@@ -107,6 +107,9 @@ public abstract class Conversation implements Comparable {
         }
     }
 
-
-
+    /**
+     * 获取自定义的用户实体
+     * @return
+     */
+     public abstract UserDto getUserDto();
 }

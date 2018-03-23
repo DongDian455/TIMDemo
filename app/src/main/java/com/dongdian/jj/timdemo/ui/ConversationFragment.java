@@ -131,15 +131,19 @@ public class ConversationFragment extends Fragment implements ConversationView,F
      */
     @Override
     public void updateMessage(TIMMessage message) {
+        //1.普通消息
         if (message == null){
             adapter.notifyDataSetChanged();
             return;
         }
+        //2.系统消息，他把系统消息也作为一个组
         if (message.getConversation().getType() == TIMConversationType.System){
             groupManagerPresenter.getGroupManageLastMessage();
             return;
         }
+        //3.这里很关键，如果后面用CustomMessage作为自定义消息扩展的话，这里要做一些处理
         if (MessageFactory.getMessage(message) instanceof CustomMessage) return;
+        //会话信息实体
         NomalConversation conversation = new NomalConversation(message.getConversation());
         Iterator<Conversation> iterator =conversationList.iterator();
         while (iterator.hasNext()){

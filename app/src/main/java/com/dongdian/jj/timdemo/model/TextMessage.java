@@ -9,13 +9,16 @@ import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dongdian.jj.timdemo.MyApplication;
 import com.dongdian.jj.timdemo.R;
 import com.dongdian.jj.timdemo.adapters.ChatAdapter;
 import com.dongdian.jj.timdemo.utils.EmoticonUtil;
+import com.tencent.imsdk.TIMCustomElem;
 import com.tencent.imsdk.TIMElem;
 import com.tencent.imsdk.TIMElemType;
 import com.tencent.imsdk.TIMFaceElem;
@@ -24,8 +27,12 @@ import com.tencent.imsdk.TIMTextElem;
 import com.tencent.imsdk.ext.message.TIMMessageDraft;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -116,6 +123,7 @@ public class TextMessage extends Message {
         TextView tv = new TextView(MyApplication.getContext());
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         tv.setTextColor(MyApplication.getContext().getResources().getColor(isSelf() ? R.color.white : R.color.black));
+        tv.setPadding(10,0,10,0);
         List<TIMElem> elems = new ArrayList<>();
         for (int i = 0; i < message.getElementCount(); ++i){
             elems.add(message.getElement(i));
@@ -129,6 +137,26 @@ public class TextMessage extends Message {
         }
         tv.setText(stringBuilder);
         getBubbleView(viewHolder).addView(tv);
+        //前面部分可以不用管，腾讯demo里面获取文本信息的,下面是显示头像
+        //做一些判断，确保是我们发送的自定义扩展内容
+        if (message.getElementCount() > 1 && message.getElement(1) instanceof TIMCustomElem) {
+            try {
+                String otherAvatar;
+                JSONObject jsonObject = new JSONObject(new String(((TIMCustomElem) message.getElement(1)).getData(), "UTF-8"));
+                otherAvatar = jsonObject.getString("avatar");
+                Log.d("tencentim",otherAvatar);
+                if(message.isSelf()){
+                    //这里我随便选了张本地的图片做显示，自行替换
+                    Glide.with(context).load(R.drawable.head_me).dontAnimate().into(viewHolder.rightAvatar);
+                }else {
+                    Glide.with(context).load(otherAvatar).dontAnimate().into(viewHolder.leftAvatar);
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         showStatus(viewHolder);
     }
 
