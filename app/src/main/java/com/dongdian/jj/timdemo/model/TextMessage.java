@@ -11,6 +11,9 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +21,7 @@ import com.dongdian.jj.timdemo.MyApplication;
 import com.dongdian.jj.timdemo.R;
 import com.dongdian.jj.timdemo.adapters.ChatAdapter;
 import com.dongdian.jj.timdemo.utils.EmoticonUtil;
+import com.google.gson.Gson;
 import com.tencent.imsdk.TIMCustomElem;
 import com.tencent.imsdk.TIMElem;
 import com.tencent.imsdk.TIMElemType;
@@ -119,6 +123,54 @@ public class TextMessage extends Message {
     public void showMessage(ChatAdapter.ViewHolder viewHolder, Context context) {
         clearView(viewHolder);
         if (checkRevoke(viewHolder)) return;
+        boolean isGift=false;
+        if (message.getElementCount() > 1 && message.getElement(1) instanceof TIMCustomElem) {
+            try {
+                JSONObject jsonObject = new JSONObject(new String(((TIMCustomElem) message.getElement(1)).getData(), "UTF-8"));
+                isGift = jsonObject.getBoolean("gift");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        if(isGift){
+            showGiftMessage(viewHolder,context);
+        }else {
+            showTextMessage(viewHolder, context);
+        }
+        showStatus(viewHolder);
+    }
+
+    private void showGiftMessage(ChatAdapter.ViewHolder viewHolder, Context context) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = null;
+        if (isSelf()) {
+            view = inflater.inflate(R.layout.message_chat_gift_right, null);
+        } else {
+            view = inflater.inflate(R.layout.message_chat_gift_right, null);
+        }
+        ImageView ivGift = view.findViewById(R.id.iv_gift);
+
+        if (message.getElementCount() <= 1 || !(message.getElement(1) instanceof TIMCustomElem)) {
+            return;
+        }
+        TIMCustomElem giftElem = (TIMCustomElem) message.getElement(1);
+        try {
+            JSONObject jsonObject = new JSONObject(new String(((TIMCustomElem) message.getElement(1)).getData(), "UTF-8"));
+            String avatar = jsonObject.getString("avatar");
+            Glide.with(context).load(avatar).dontAnimate().into(viewHolder.rightAvatar);
+            Glide.with(context).load(avatar).dontAnimate().into(ivGift);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        getBubbleView(viewHolder).addView(view);
+        getBubbleView(viewHolder).setBackground(null);
+    }
+
+    private void showTextMessage(ChatAdapter.ViewHolder viewHolder, Context context) {
         boolean hasText = false;
         TextView tv = new TextView(MyApplication.getContext());
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
@@ -157,7 +209,6 @@ public class TextMessage extends Message {
                 e.printStackTrace();
             }
         }
-        showStatus(viewHolder);
     }
 
     /**

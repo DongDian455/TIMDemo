@@ -587,6 +587,7 @@ public class ChatActivity extends FragmentActivity implements ChatView {
         // json的自定义消息
         JSONObject jsonObject=new JSONObject();
         try {
+            jsonObject.put("gift",true);
             jsonObject.put("name","渣渣辉");
             jsonObject.put("avatar","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522398341&di=60cdf3deabd3fc8bec2417fe8d95ea8f&imgtype=jpg&er=1&src=http%3A%2F%2Fimg1.ali213.net%2Fwebgamepic%2Fuploadfile%2Fnews%2F2017%2F07%2F06%2Fali20170706105114_77443_600.jpg");
             elem.setData(jsonObject.toString().getBytes());
